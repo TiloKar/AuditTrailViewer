@@ -1,0 +1,27 @@
+
+#ButtonDrawReport,
+#ButtonChooseNewTrendfile,
+#ButtonToggleEditorView,
+#ButtonLoadDump,
+#editor,
+#fileSelection,
+#loadingScreen,
+.ui-tooltip,
+.ui-helper-hidden-accessible{
+	visibility : hidden;
+	display: none !important;
+	height: 0;
+}
+#seqList>li{
+	page-break-after: always;
+}
+#seqList>li.collapsedListNode{
+	page-break-after: auto;
+}
+.seqTransitionEntry{
+	border-style: dotted;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+  border-top-width: 1px;
+  border-top-style: dotted;
+}

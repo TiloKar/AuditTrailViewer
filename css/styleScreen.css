@@ -1,0 +1,60 @@
+
+
+.trendfiles:hover{
+ color: blue;
+ font-weight: bold;
+}
+
+ #loadingScreen{
+ 	text-align: center;
+ 	padding: 5em;
+ }
+
+ #progressbarloadingTrendfile{
+ 	width:50%;
+ 	margin: auto;
+ }
+
+
+.ControlGroupReportBlock
+{
+	/*text-align: right;*/
+	border: 1px solid grey;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.SpinnerReportBlock
+{
+  color: orange;
+}
+.SpinnerReportBlockUnit
+{
+  display:inline-block;
+  color: orange;
+  margin-left: 0.5em;
+}
+.ReportBlockCount
+{
+  display:inline-block;
+  float:right;
+}
+
+#editor{
+
+}
+.ui-button {
+  padding: .1em .5em;
+}
+#ButtonDrawReport img
+{
+  float:left;
+}
+#TextDrawReport
+{
+  margin-left: .2em;
+  padding-top: .5em;
+  font-size: .5em;
+  display:inline-block;
+  text-align: left;
+}

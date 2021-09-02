@@ -1,0 +1,48 @@
+.struct_sname /*Name eines structs*/
+{
+  /*display:inline-block;*/
+  color: orange;
+}
+
+.struct_vname /*name eines wertes*/
+{
+  /*display:inline-block;*/
+  color: black;
+}
+.struct_value /*wert*/
+{
+  display:inline-block;
+  color: darkblue;
+  margin-left: 0.5em;
+}
+
+.struct_level_1
+{
+  display:inline-block;
+  margin-left: 1em;
+}
+.struct_level_2
+{
+  display:inline-block;
+  margin-left: 2em;
+}
+.struct_level_3
+{
+  display:inline-block;
+  margin-left: 3em;
+}
+.struct_level_4
+{
+  display:inline-block;
+  margin-left: 4em;
+}
+.struct_level_5
+{
+  display:inline-block;
+  margin-left: 5em;
+}
+.struct_level_6
+{
+  display:inline-block;
+  margin-left: 6em;
+}

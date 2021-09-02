@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>bbi-Audit-Trail-Events</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="shortcut icon" href="favicon.ico" />
+<!-- intentionally blank -->
+<link type="text/css" href="js/jqUI/jquery-ui.min.css" rel="stylesheet" media="screen" />
+<!-- intentionally blank -->
+<link type="text/css" href="css/styleScreen.css" rel="stylesheet" media="screen"/>
+<link type="text/css" href="css/stylePrinter.css" rel="stylesheet" media="print"/>
+<!-- intentionally blank -->
+<link type="text/css" href="css/styleAll.css" rel="stylesheet" media="all"/>
+<link type="text/css" href="css/styleStructsAll.css" rel="stylesheet" media="all"/>
+<!-- intentionally blank -->
+<script type="text/javascript" src="js/jq/jquery.js" defer="defer"></script>
+<script type="text/javascript" src="js/jqUI/jquery-ui.min.js" defer="defer"></script>
+<!-- intentionally blank -->
+<script type="text/javascript" src="js/data/BinaryBRStructFile.js" defer="defer"></script>
+<script type="text/javascript" src="js/data/BRStructType.js" defer="defer"></script>
+<script type="text/javascript" src="js/data/BRTypedFile.js" defer="defer"></script>
+<script type="text/javascript" src="js/data/Trendfile.js" defer="defer"></script>
+<script type="text/javascript" src="js/data/Eventfile.js" defer="defer"></script>
+<!-- intentionally blank -->
+<script type="text/javascript" src="js/eventHMI/EventDomOutputs.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/ListPlotter.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/TrendInputEvents.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/TrendOutputEvents.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/TrendLoopEvents.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/LoginOutEvents.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/OutputEvents.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/LoopEvents.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/ProfileEvents.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/SequenceEvents.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/EventDBHandling.js" defer="defer"></script>
+<script type="text/javascript" src="js/eventHMI/jqUI_Bindings.js" defer="defer"></script>
+<!-- intentionally blank -->
+<script type="text/javascript" src="js/init.js" defer="defer"></script>
+<!-- intentionally blank -->
+</head>
+
+<body>
+<noscript>
+  JavaScript required!
+</noscript>
+
+<!--  Das generelle Nutzungskozept sind drei zentrale divs:
+
+	#header
+
+	Die Kopfzeile mit Button zum Togglen der Ansicht für Wahl eienr neuen Trenddatei,
+	Button zum Togglen der Ansicht des Editors
+	Hinweis auf Tab zu den Events + Eindeutiger Name der Trenddatei
+
+	#fileSelection/#editor
+
+	Liste zum wählen einer neuen Trenddatei
+	Editorblock mit verfügbaren Anzeigeoptionen der geladenen Trenddatei
+	beides wird wechselseitig angezeit.
+	Filterparameter werden per Drag&Drop in die reportList gezogen...
+
+	#reporList
+
+	Die eigentliche Report-Liste
+	Diese ist das DOM Abbild der Daten im Arbeitsspeicher.
+	Diese wird jedesmal dynamisch, asynchron gebildet, wenn ein Filterparamter verändert wird.
+
+ -->
+
+<!-- Overlay bei Asynchronen Bearbeitungen (Ladebildschirm) -->
+  <div id="loadingScreen" title="Working...">
+    <h1></h1>
+    <div id="progressbarloadingTrendfile"></div>
+  </div>
+<!-- Container für Statusinfos, und zentrale Steuerelemente -->
+ 	<div id="header">
+		<h1>
+      Report: Event-Log<span id="headerFilename"></span>
+    </h1>
+    <button title="Use this button to generate your final report list, filtered with your settings" id="ButtonDrawReport"> <img src="img/make_list.png" alt="Make Report List" height="50" width="50"></img><div id="TextDrawReport"></div> </button>
+		<button title="Use this button to hide/show a list of all available AT-Batches on your device." id="ButtonChooseNewTrendfile"> <img src="img/index_selection.png" alt="ChooseNewTrendfile" height="50" width="50"></img> </button>
+		<button title="Use this button to hide/show a editor for filter settings for your AT-Report." id="ButtonToggleEditorView"><img src="img/checkbox_filter.png" alt="Toggle Editor Window" height="50" width="50"></img></button>
+    <button title="Use this button to show the Initial-State of your AT-Batch in a separate Tab" id="ButtonLoadDump"><img src="img/dumbshot.png" alt="Load AT-Dump" height="50" width="50"></img></button>
+	</div>
+<!-- Container für Liste verfügbarer Trendateien auf dem Server -->
+	<div id="fileSelection" class="myTable">
+    Browse for available files (Archive):
+    <input id="archiveFileInput" multiple type="file" accept=".TREND,.EVENT,.bbid">
+    <br><br>
+    Choose from available files on xCUBIO:
+		<button title="Click here to refresh the list of available AT-Batches on device" id="ButtonRefreshTrendfileList">refresh</button>
+		<span id="fileListfromServer" class="ui-widget"></span>
+		<br>
+	</div>
+<!-- Container für zusammenfassende Infos zum Log und
+ zum Editieren der eigentlichen Reporttabelle -->
+	<div id="editor">
+    <h3 title="Common Information, e.g. starting time, number of events,... you can find in this accordion tab.">Header Info</h3>
+    <div id="headerInfoTrendfile" class="myTable"></div>
+    <h3 title="Here you can select the Input channels you want to list in report. Choose a deadband value. A new report line is printed only if value change is higher then the selected deadband">
+      Input Channels
+    </h3>
+		<div id="reportBlockInputs"></div>
+    <h3 title="Here you can select the Output channels you want to list in report. Choose a deadband value. A new report line is printed only if value change is higher then the selected deadband">
+      Output Channels
+    </h3>
+		<div id="reportBlockOutputs"></div>
+    <h3 title="Here you can select the Control Loop Setpoints you want to list in report. Choose a deadband value. A new report line is printed only if value change is higher then the selected deadband">
+      Control Loop Setpoints
+    </h3>
+    <div id="reportBlockLoops"></div>
+	  <h3 title="Select the event categories you want to see in your report here.">
+      Events
+    </h3>
+    <div id="reportBlockEvents">
+      <div class="ControlGroupReportBlock" id="reportBlockUserEvents"></div>
+      <div class="ControlGroupReportBlock" id="reportBlockOutputEvents"></div>
+      <div class="ControlGroupReportBlock" id="reportBlockLoopEvents"></div>
+      <div class="ControlGroupReportBlock" id="reportBlockProfileEvents"></div>
+      <div class="ControlGroupReportBlock" id="reportBlockSequenceEvents"></div>
+    </div>
+	</div>
+
+<!-- Container für Reporttabelle -->
+  <ol id="reportList"></ol>
+	<div id="DialogError404" title="Error">This file can not be loaded!</div>
+	<div id="DialogErrorHeaderTrendfile" title="Error">The header of this file is corrupted</div>
+  <div id="DialogErrorFileSelection" title="Error">Choose exactly the three files from archives batch folder!</div>
+</body>
+
+</html>
