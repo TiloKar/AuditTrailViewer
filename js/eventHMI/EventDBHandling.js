@@ -213,6 +213,7 @@ var HMI = {
 
       var dobj = new BinaryBRTypedFile(response,"dumpfile_typ");
       dumpfile1=dobj.elements;
+      //eventuell in zukunft noch prüfsummen checks einfügen, um diese in der dumbübersicht anzuzeigen
       if (local===true){
         HMI.getEventFile1(localFiles1[2]);
       }else{

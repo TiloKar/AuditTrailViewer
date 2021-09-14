@@ -18,7 +18,7 @@
 <!-- intentionally blank -->
 <script type="text/javascript" src="js/data/BinaryBRStructFile.js" defer="defer"></script>
 <script type="text/javascript" src="js/data/BRStructType.js" defer="defer"></script>
-<script type="text/javascript" src="js/data/BRTypedFile.js" defer="defer"></script>
+<script type="text/javascript" src="js/data/BinaryBRTypedFile.js" defer="defer"></script>
 <!-- intentionally blank -->
 <!-- intentionally blank -->
 <!-- intentionally blank -->
@@ -54,6 +54,7 @@
 <script type="text/javascript" src="js/dumbHMI/modules/seq/SeqDump.js" defer="defer"></script>
 <script type="text/javascript" src="js/dumbHMI/modules/seq/ValveDump.js" defer="defer"></script>
 <script type="text/javascript" src="js/dumbHMI/modules/seq/Interlocking.js" defer="defer"></script>
+<script type="text/javascript" src="js/dumbHMI/modules/user/Usersystem.js" defer="defer"></script>
 <script type="text/javascript" src="js/dumbHMI/CollapsibleList.js" defer="defer"></script>
 <script type="text/javascript" src="js/dumbHMI/DumpMainList.js" defer="defer"></script>
 <script type="text/javascript" src="js/dumbHMI/init.js" defer="defer"></script>
@@ -74,10 +75,13 @@
   <h2>Sequence Definitions</h2>
   <ul id="seqList" class="clist">
   </ul>
-  <h2>Valve Matrix</h2>
-  <div id="valveList"></div>
-  <h2>Interlocking</h2>
-  <div id="interlockingList"></div>
+  <h2>Valve References and Lockings</h2>
+  <ul id="seqList" class="clist">
+    <li><h3>Valve Matrix</h3>
+    <div id="valveList"></div></li>
+    <li><h3>Interlocking</h3>
+    <div id="interlockingList"></div></li>
+  </ul>
   <h2>Users</h2>
   <div id="userList"></div>
 </body>

@@ -16,8 +16,7 @@
 }
 .myTable th {
  text-align: left;
- background-color: #070;
- color: white;
+ background-color: #ddd;
 }
 #header h1{
 	color: grey;
@@ -129,6 +128,6 @@ td.keepValve, td.openedValve, td.openedValve {
   vertical-align: middle;
 }
 .verticalText{
-  writing-mode: vertical-lr;
-  text-orientation: upright;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }

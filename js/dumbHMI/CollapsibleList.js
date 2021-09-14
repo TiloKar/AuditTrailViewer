@@ -1,6 +1,6 @@
 /**
  *  statische Factoryklasse zur umwandlung einer
- *  nested ul des dump-outputs in eine collapsible listUsage
+ *  nested ul des dump-outputs in eine collapsible list
  *  (nutzerspezifischen ein-ausklappen von benötigten infos)
  *
  *  *@author TK, 06/2021, version 1.0.1

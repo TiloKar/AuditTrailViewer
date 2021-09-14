@@ -13,8 +13,12 @@ class SeqDump  {
     this.myIndex = index;
     this.v = d.fileValves; //referenz auf ventile
     this.s = d.seqFiles[index]; //referenz auf eigentliche Sequenzdaten, indiziert mit i
+    //workaround um bei konstruktion, die referenzliste der globalen parameter zurückzusetzen
+    //bei mehrmaligem laden aus dem ersten tab, kam es zu einer akkumulation der pushs in rowRefs.usedInRows[]
+    for (var i = 0; i < this.s.globalParHead.length; i++) {
+      this.s.globalParHead[i].rowRefs = undefined;
+    }
     SeqDump.seqTags = [];
-
     for (var i = 0; i < d.seqFiles.length; i++) {
       SeqDump.seqTags[i] = d.seqFiles[i].tag;
     }
@@ -124,8 +128,8 @@ class SeqDump  {
     //hier dann aus this.intGlobals() die tabelle der globalen parameter aufbauen
     back+=    "<li><h3>Global Paramters</h3>";
     var nGlobals = 0;
-    for (var i=0;i < this.s.globalParHead.length;i++)
-      if (this.s.globalParHead[i].rowRefs!==undefined) {
+    for (var i=0;i < this.s.globalParHead.length;i++){
+      if (this.s.globalParHead[i].rowRefs !== undefined) {
         nGlobals++; //globale oaramter mit gesetzten referenzen durchzählen
         //alert(this.s.globalPar[i]);
         this.s.globalParHead[i].parMin=BinaryBRStructFile.roundWithUnit(this.s.globalParHead[i].parMin,this.s.globalParHead[i].rowRefs.unit);
@@ -133,20 +137,24 @@ class SeqDump  {
         this.s.globalPar[i]=BinaryBRStructFile.roundWithUnit(this.s.globalPar[i],this.s.globalParHead[i].rowRefs.unit); //unitabhängiges runden
         //bei z.B. eingabe in anzeigeunit<>plc unit kommt es manchmal zu sehr vielen gleitkommastellen
       }
+    }
+    //alert(nGlobals);
     if (nGlobals>0){
       back+=    '<div class="myTable"><table><tbody>' +
                 '<tr><th>Tag </th><th>Value </th><th>Min </th><th>Max </th> <th>Used in rows </th> </tr>';
       var ref;
       for (var i=0;i < this.s.globalParHead.length;i++){
-        if (this.s.globalParHead[i].rowRefs!==undefined){
+        if (this.s.globalParHead[i].rowRefs !== undefined){
           ref = this.s.globalParHead[i];
           back+=    '<tr><td>' + ref.tag + '</td>' +
                     '<td>' + this.s.globalPar[i] + ' ' + ref.rowRefs.unit + '</td>' +
                     '<td>' + ref.parMin + ' ' + ref.rowRefs.unit + '</td>' +
                     '<td>' + ref.parMax + ' ' + ref.rowRefs.unit + '</td>';
           back+=    '<td> ' + ref.rowRefs.usedInRows[0];
-          for (var k=1;k < ref.rowRefs.usedInRows.length;k++)
+          //alert(ref.rowRefs.usedInRows.length);
+          for (var k=1;k < ref.rowRefs.usedInRows.length;k++){
             back+=    ', ' + String(ref.rowRefs.usedInRows[k]);
+          }
           back+=    '</td></tr>';
         }
       }
@@ -216,7 +224,7 @@ class SeqDump  {
   }
   /**
   löst die referenz zum globalen parameter auf
-  und nimmt hängt eine entsprechendes object in d.globalParHead eine
+  und hängt eine entsprechendes object in d.globalParHead ein, bzw. erweitert es
 
   nur verwendete parameter bekommen .rowRefs
 
@@ -229,8 +237,11 @@ class SeqDump  {
       this.s.globalParHead[slot].rowRefs.usedInRows = new Array(0);
       this.s.globalParHead[slot].rowRefs.unit=unit
       this.s.globalParHead[slot].rowRefs.usedInRows[0]=indexRow;
+      //alert(indexRow);
     }else{
       this.s.globalParHead[slot].rowRefs.usedInRows.push(indexRow);
+      //alert(indexRow);
+      this.s.globalParHead[slot].rowRefs.unit=unit
     }
     var back = {};
     back.value= this.s.globalPar[slot];

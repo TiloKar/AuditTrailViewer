@@ -214,7 +214,7 @@ TYPE
 	END_STRUCT;
 	valveArraySlot_typ : 	STRUCT
 		user : USINT; (*Erstellerindex (userArray)*)
-		version : USINT;
+		version : UDINT;
 		tag : STRING[15]; (*titel*)
 		lastChanged : DATE_AND_TIME;
 		valve : ARRAY[0..63]OF USINT; (*ventilarray*)

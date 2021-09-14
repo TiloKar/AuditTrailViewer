@@ -8,7 +8,7 @@ class Interlocking {
   constructor(d){
     this.locks = [];
     this.names = [];
-    for (var i=0;i<d.seqFiles.length;i++){
+    for (var i = 0 ; i < d.seqFiles.length ; i++){
       if(d.seqFiles[i].user > 1){
         this.locks.push(d.seqFiles[i].locking);
         this.names.push(d.seqFiles[i].tag);
@@ -22,9 +22,9 @@ class Interlocking {
   getIntelockingTable(){
     var seqUsed=this.names.length;
     var back=   '<div class="myTable"><table><tbody><tr><th></th>';
-    for (var k=0;k<seqUsed;k++) back+='<th  class="verticalText">' + this.names[i] + '</th>';  //kopfzeile
+    for (var k=0;k<seqUsed;k++) back+='<th  class="verticalText">' + this.names[k] + '</th>';  //kopfzeile
     back+=      '</tr>';
-    var lastCol=seqUsed;
+    var lastCol=1;
     for (var i=1;i<seqUsed;i++){ //alle zeilen ab zweiter sequenz
         back+=  '<tr><th>' + this.names[i] + '</th>';  //name
         for (var k=0;k<lastCol;k++){
@@ -34,8 +34,9 @@ class Interlocking {
             back+=  '<td></td>';
           }
         }
+
         for (k;k<seqUsed;k++) back+=  '<td></td>'; //nicht geprüfte anhänegn
-        //lastCol--; //jedesmal eine weniger überprüfen
+        lastCol++; //jedesmal eine weniger überprüfen
         back+=  '</tr>';
     }
     back+=   '</tbody></table></div>';
