@@ -111,6 +111,27 @@ class ListPlotter{
                 '</b> stopped finally <br><span class="reportListSeqTag">' + ListPlotter.dump.seqFiles[element.data.par1].tag  +
                 "</span>";
         break;
+        case 100: push=EventDOMOutputs.makeGenericAlertEntry(0,0,element.data.par2); break; //generic alarm come
+        case 101: push=EventDOMOutputs.makeGenericAlertEntry(0,1,element.data.par2); break; //generic alarm gone
+        case 102: push=EventDOMOutputs.makeGenericAlertEntry(0,2,element.data.par2); break; //generic alarm ack
+        case 110: push=EventDOMOutputs.makeGenericAlertEntry(1,0,element.data.par2); break; //serial alarm come
+        case 111: push=EventDOMOutputs.makeGenericAlertEntry(1,1,element.data.par2); break; //serial alarm gone
+        case 112: push=EventDOMOutputs.makeGenericAlertEntry(1,2,element.data.par2); break; //serial alarm ack
+        case 120: push=EventDOMOutputs.makeGenericAlertEntry(2,0,element.data.par2); break; //x20 alarm come
+        case 121: push=EventDOMOutputs.makeGenericAlertEntry(2,1,element.data.par2); break; //x20 alarm gone
+        case 122: push=EventDOMOutputs.makeGenericAlertEntry(2,2,element.data.par2); break; //x20 alarm ack
+        case 130: push=EventDOMOutputs.makeUserAlertEntry(0,0,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break; //HH alarm come
+        case 131: push=EventDOMOutputs.makeUserAlertEntry(0,1,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break; //HH alarm gone
+        case 132: push=EventDOMOutputs.makeUserAlertEntry(0,2,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break; //HH alarm ack
+        case 140: push=EventDOMOutputs.makeUserAlertEntry(1,0,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break; //L alarm come
+        case 141: push=EventDOMOutputs.makeUserAlertEntry(1,1,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break; //...
+        case 142: push=EventDOMOutputs.makeUserAlertEntry(1,2,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break;
+        case 150: push=EventDOMOutputs.makeUserAlertEntry(2,0,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break;
+        case 151: push=EventDOMOutputs.makeUserAlertEntry(2,1,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break;
+        case 152: push=EventDOMOutputs.makeUserAlertEntry(2,2,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break;
+        case 160: push=EventDOMOutputs.makeUserAlertEntry(3,0,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break;
+        case 161: push=EventDOMOutputs.makeUserAlertEntry(3,2,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break;
+        case 162: push=EventDOMOutputs.makeUserAlertEntry(3,2,ListPlotter.dump.channelHeaders.cI[element.data.par2].tag); break;
       }
       if (push!==false) {
         ListPlotter.preParsedDomOutputs.eventClasses[0].push( {

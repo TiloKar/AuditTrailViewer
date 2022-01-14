@@ -61,6 +61,28 @@ class Eventfile extends BinaryBRStructFile  {
       case 72: //sequence dialog mit abbruch quittiert
       case 73: //sequence dialog timeout abgelaufen
       case 74: //sequence dialog minimiert
+      case 100: //alarm generic come
+      case 101: //alarm generic gone
+      case 102: //alarm generic ack
+      case 110: //alarm serial come
+      case 111: //alarm serial gone
+      case 112: //alarm serial ack
+      case 120: //alarm x20 come
+      case 121: //alarm x20 gone
+      case 122: //alarm x20 ack
+      case 130: //alarm HH come
+      case 131: //alarm HH gone
+      case 132: //alarm HH ack
+      case 140: //alarm H come
+      case 141: //alarm H gone
+      case 142: //alarm H ack
+      case 150: //alarm L come
+      case 151: //alarm L gone
+      case 152: //alarm L ack
+      case 160: //alarm LL come
+      case 161: //alarm LL gone
+      case 162: //alarm LL ack
+
         out.par1=this.makeUDINT();
         out.par2=this.makeUDINT();
       break;

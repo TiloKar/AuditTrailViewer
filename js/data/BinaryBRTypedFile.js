@@ -9,7 +9,7 @@
 */
 
 class BinaryBRTypedFile extends BinaryBRStructFile{
-  /** parst alle Dateien im typ-ordner
+  /**
    * estellt objectarray "brStructs" aller ": 	STRUCT" Elemente
    * bereitet name und typstring in BRStructType[] auf
    */
@@ -161,18 +161,18 @@ class BinaryBRTypedFile extends BinaryBRStructFile{
   makeStructNodes(nodeType,debug){ //nodeName raus, der kann immer aus structdef entnommen werden und node wird vor dem eigentlichen call erzeugt!
     //alert("start rek: " + node);
     var debugMode;
-    var debugType="nichts";
+    //var debugType="nichts";
     var out=new Object();
     out.corrected = 0;
     var atomarType = this.isAtomarBRType(nodeType);
     if (atomarType===true) {//echter atomarer Typ, außer STRING als blatt
       out.corrected = BinaryBRTypedFile.getCorrectionOperatorFromTypeString(nodeType)
       if (out.corrected===false) alert("false at operator, at: " + nodeType);
-      if (debug === true)
-        if (debugType===nodeType)alert(nodeType + " at " + this.offset + " now correcting with " + out.corrected);
+      //if (debug === true)
+      //  if (debugType===nodeType)alert(nodeType + " at " + this.offset + " now correcting with " + out.corrected);
       if (out.corrected > 0) while ((this.offset % out.corrected)!=0)this.offset++; //vorkorektur atomar
-      if (debug === true)
-        if (debugType===nodeType)alert(nodeType + " now at " + this.offset);
+      //if (debug === true)
+      //  if (debugType===nodeType)alert(nodeType + " now at " + this.offset);
       out.node=this.makeAtomarValue(nodeType);
       return out;
       //alert(node[nodeName]);
@@ -238,13 +238,13 @@ class BinaryBRTypedFile extends BinaryBRStructFile{
       }else{ //über alle Elemente der Strukturdefinition iterieren und rekursionstiefe erhöhen
         //if (nodeType==="valveArraySlot_typ")alert(this.offset);
         out.corrected = fund.moduloOperatorForOffsetCorrection;
-        if (debug === true){
-          if (debugType===nodeType)alert(nodeType + " at " + this.offset + " now precorrecting with " + out.corrected);
+        //if (debug === true){
+        //  if (debugType===nodeType)alert(nodeType + " at " + this.offset + " now precorrecting with " + out.corrected);
           //alert(debugType);
-        }
+        //}
         if (out.corrected > 0) while ((this.offset % out.corrected)!=0)this.offset++;  //vorkorrektur
-        if (debug === true)
-          if (debugType===nodeType)alert(nodeType + " after precorr. at " + this.offset);
+        //if (debug === true)
+        //  if (debugType===nodeType)alert(nodeType + " after precorr. at " + this.offset);
         var node = new Object;
       //  if (nodeType == 'seq_Slot_typ') alert ("offset for: " + nodeType + " at : " + this.offset);
         for (var indexStruct=0; indexStruct < fund.brRawParse.length; indexStruct++){
@@ -257,7 +257,7 @@ class BinaryBRTypedFile extends BinaryBRStructFile{
             */
 
 
-            debugMode = (fund.brRawParse[indexStruct][0] === 'par');
+            //debugMode = (fund.brRawParse[indexStruct][0] === 'par');
 
 
             /*
@@ -279,8 +279,8 @@ class BinaryBRTypedFile extends BinaryBRStructFile{
           }
         }
         if (out.corrected > 0) while ((this.offset % out.corrected)!=0)this.offset++;  //nachkorrektur
-        if (debug === true)
-          if (debugType===nodeType)alert(nodeType + " after postcorr. at " + this.offset);
+        //if (debug === true)
+        //  if (debugType===nodeType)alert(nodeType + " after postcorr. at " + this.offset);
         out.node=node;
         return out;
       }
@@ -392,61 +392,4 @@ class BinaryBRTypedFile extends BinaryBRStructFile{
       }
     }
   }
-  /**
- Legacy 06.2021
-
-    Erzeugt DOM-String der B&R Strukturentsprechung
-    ein aufruf löst einen struct auf
-    --noch nicht ganz durchentwickelt, aber prinzipiell machbar.
-    PROBLEM: ein nachträgliches $.append ist zu träge
-    PROBLEM: ein nachträgliches einhängen von clickEventhandler an die node klassen, lässt bei der riesigen struktur,
-    den stack überlaufen,
-
-    debugging der offset regeln erst mal via konsole und heapsnapshot
-    danach spezialisierte klassen zum menschenlesbaren aufbereiten der haupstrukturen
-    - config
-    - profile
-    - seq
-    ...
-
-
-  toHtmlDOM(node,level){
-    if (node==null){
-      this.s='';
-      this.toHtmlDOM(this.elements,0);
-    }else{
-      //alert("rek call");
-      //<span class="struct_level struct_level_' + level + '">
-      if ((typeof node === 'number') || (typeof node === 'string') || (typeof node === 'boolean') || (node instanceof Date)){
-        this.s+='<span class="struct_vname">' + nodeName + '</span>';
-        this.s+='<span class="struct_value">' + node + '</span><br>';
-      }else if (Array.isArray(node)){ //falls node ein array ist
-        //header auf gleichem level s+ ohne []
-        this.s+='<span class="struct_level_' + level + '"><span class="struct_sname">' + nodeName + '</span><br>';
-        if ((typeof node[0] === 'number') || (typeof node[0] === 'string') || (typeof node[0] === 'boolean') || (node[0] instanceof Date)){//array von atomarem typ
-          for (var indexArray=0; indexArray < node.length; indexArray++){
-            this.s+='<span class="struct_level struct_level_' + (level + 1) + '"><span class="struct_vname">' + nodeName + '[' + indexArray + ']</span>';
-            this.s+='<span class="struct_value">' + node[indexArray] + '</span></span><br>';
-          }
-        }else if(typeof node[0] === 'object'){      //array von objectknoten
-        //  alert(typeof node[0]);
-          //dann über jedes elemnt nodeName erzeugen mit [] und rekursiver aufruf mit level + 1
-          //this.s+='<span class="struct_level_' + level + '"><span class="struct_sname">' + nodeName + '</span></span><br>';
-          for (var indexArray=0; indexArray < node.length; indexArray++)
-            this.toHtmlDOM(node[indexArray],nodeName + '[' + indexArray + ']',level + 1);
-        }else{
-          alert("unhandled node type: " + typeof node[0] + "in: " + nodeName);
-        }
-      }else if(typeof node === 'object'){ //object als blatt
-        this.s+='<span class="struct_level_' + level + '"><span class="struct_sname">' + nodeName + '</span></span><br>';
-        for (var e in node) { //über alle objektknoten ein rekursiver aufruf
-          if (node.hasOwnProperty(e)) {
-            this.toHtmlDOM(node[e],e,level + 1);
-          }
-        }
-      }else{
-        alert("unhandled node type: " + typeof node + "in: " + nodeName);
-      }
-    }
-  }*/
 }

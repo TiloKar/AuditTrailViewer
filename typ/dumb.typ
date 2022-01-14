@@ -194,22 +194,12 @@ TYPE
 		autoOffset : BOOL; (*obsolet, x-achsen einstellungen nicht mehr teil der config*)
 		changed : BOOL;
 	END_STRUCT;
-	setup_user_typ : 	STRUCT
-		bg : USINT; (*Index Hintergrundbild*)
-		unitPres : USINT;
-		unitVol2 : USINT;
-		unitVol : USINT;
-		unitFlow : USINT;
-		unitMass : USINT;
-		unitTemp : USINT;
-		language : USINT;
-		unitCond : USINT := 1;
-	END_STRUCT;
 	user_typ : 	STRUCT
-		nick : STRING[30] := 'empty';
+		nick : STRING[30];
 		pw : STRING[30];
-		level : USINT;
-		setupUser : setup_user_typ; (*Index Hintergrundbild*)
+		level : USINT; (*neu mit AT Nutzersystem*)
+		bg : USINT; (*Index Hintergrundbild*)
+		language : USINT;
 		changed : BOOL;
 	END_STRUCT;
 	valveArraySlot_typ : 	STRUCT
@@ -234,6 +224,15 @@ TYPE
 		user : STRING[30];
 		pw : STRING[30];
 	END_STRUCT;
+	setup_units_typ : 	STRUCT
+		unitPres : USINT;
+		unitVol2 : USINT;
+		unitVol : USINT;
+		unitFlow : USINT;
+		unitMass : USINT;
+		unitTemp : USINT;
+		unitCond : USINT := 1;
+	END_STRUCT;
 	file_setup_typ : 	STRUCT
 		scrBacklightTurnOffDelayScaled : UINT := 300; (*Delay(sek) bis zum ausschalten der hintergrundbeleuchtung (0=kein abschalten)*)
 		enableRAMdebug : BOOL;
@@ -257,6 +256,10 @@ TYPE
 		counter : ARRAY[0..7]OF UDINT;
 		netStorage : netStorage_typ;
 		ntp : ntp_typ;
+		units : setup_units_typ;
+		trendAutoTag1 : STRING[23] := 'SIP';
+		trendAutoTag2 : STRING[23] := 'FERM';
+		trendAutoTag3 : STRING[23] := 'CIP';
 		changed : BOOL;
 	END_STRUCT;
 

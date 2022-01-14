@@ -18,7 +18,7 @@
  text-align: left;
  background-color: #ddd;
 }
-#header h1{
+#header h1 {
 	color: grey;
 }
 #headerFilename{
@@ -47,10 +47,10 @@
 .seqOutputValue, .reportListOutputTag{
 	color: #F60;
 }
-.seqInputValue, .reportListInputTag{
+.seqInputValue, .reportListInputTag, .alertGone, .reportListAlertInputTag {
 	color: darkgreen;
 }
-.seqLoopValue, .reportListLoopTag, .reportListSeqTag, .seqTimeValue, .keepValve{
+.seqLoopValue, .reportListLoopTag, .reportListSeqTag, .seqTimeValue, .keepValve, .alertAck{
   color: blue;
 }
 
@@ -58,7 +58,7 @@
   float: right;
 }
 
-.reportListUsertext, .seqUserText{
+.reportListUsertext, .seqUserText, .reportListAlertText{
 		color: darkblue;
 }
 .reportListValue/* Kanal-Wert in Liste*/{
@@ -70,7 +70,7 @@
   color: darkblue;
   float: right;
 }
-.reportListError /* Fehler in Liste*/{
+.reportListError, .alertCome /* Fehler in Liste*/{
   color: red;
   font-weight: bold;
 }
@@ -81,7 +81,7 @@ ul.clist h3{
 ul.clist h3:hover  /*  eingeklappter listknoten in dumpliste*/{
 	color: darkblue;
 }
-ul.clist li.collapsedListNode>h3  /*  eingeklappter listknoten in dumpliste*/{
+ul.clist li.collapsedListNode>h3 /*  eingeklappter listknoten in dumpliste*/{
 	color: lightgrey;
 }
 ul.clist li.collapsedListNode /*  eingeklappter listknoten in dumpliste*/{
