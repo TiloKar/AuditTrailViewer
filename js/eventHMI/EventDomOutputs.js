@@ -74,7 +74,9 @@ class EventDOMOutputs   {
     alertSerialsString[12] = "Error on MFC Bus Channel 3";
     alertSerialsString[13] = "Error on MFC Bus Channel 4";
     alertSerialsString[20] = "Error on Visiferm RS485 channel";
-    alertSerialsString[21] = "Error on pH RS485 channel ";
+    alertSerialsString[21] = "Error on pH 1 RS485 channel ";
+    alertSerialsString[22] = "Error on pH 2 RS485 channel ";
+    alertSerialsString[23] = "Error on ORP RS485 channel ";
     alertSerialsString[24] = "Error on DCO2 RS485 channel ";
     alertSerialsString[25] = "Error on RS485 DS module";
     alertSerialsString[27] = ""; //kopiervorlage
@@ -110,7 +112,7 @@ class EventDOMOutputs   {
     back=  '<span class="reportListFirstCol reportListError">' + alertSubClassString[alertSubClass];
     back+= ' on ' + '<span class="reportListAlertInputTag">' + inputTag + '</span></span>';
     back+= alertTypeString[alertType];
-    
+
     return back;
   }
   /**
