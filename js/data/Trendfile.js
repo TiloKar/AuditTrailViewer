@@ -174,7 +174,6 @@ class Trendfile extends BinaryBRStructFile  {
 						this.lineCRCerrors++;
 						return false;
 					}else{
-						//alert("hier");
 						out.data = new Object;
 						out.data.cI = new Array();
 						for (var i=0; i < this.countInpMax; i++){//Eingänge entpacken

@@ -21,6 +21,7 @@
 <script type="text/javascript" src="js/data/BinaryBRTypedFile.js" defer="defer"></script>
 <script type="text/javascript" src="js/data/Trendfile.js" defer="defer"></script>
 <script type="text/javascript" src="js/data/Eventfile.js" defer="defer"></script>
+<script type="text/javascript" src="js/data/Dumpfile.js" defer="defer"></script>
 <!-- intentionally blank -->
 <script type="text/javascript" src="js/eventHMI/EventDomOutputs.js" defer="defer"></script>
 <script type="text/javascript" src="js/eventHMI/ListPlotter.js" defer="defer"></script>
@@ -85,7 +86,8 @@
 <!-- Container für Liste verfügbarer Trendateien auf dem Server -->
 	<div id="fileSelection" class="myTable">
     Browse for available files (Archive):
-    <input id="archiveFileInput" multiple type="file" accept=".TREND,.EVENT,.bbid">
+    <input id="archiveFileInput" class="ui-button ui-corner-all ui-widget" multiple type="file" accept=".TREND,.EVENT,.bbid">
+    <button title="Use this Button to read the selected files." id="ButtonReadFromArchive">read the files</button>
     <br><br>
     Choose from available files on xCUBIO:
 		<button title="Click here to refresh the list of available AT-Batches on device" id="ButtonRefreshTrendfileList">refresh</button>
@@ -124,7 +126,7 @@
 <!-- Container für Reporttabelle -->
   <ol id="reportList"></ol>
 	<div id="DialogError404" title="Error">This file can not be loaded!</div>
-	<div id="DialogErrorHeaderTrendfile" title="Error">The header of this file is corrupted</div>
+	<div id="DialogErrorValidation" title="Error">The header of this file is corrupted</div>
   <div id="DialogErrorFileSelection" title="Error">Choose exactly the three files from archives batch folder!</div>
 </body>
 

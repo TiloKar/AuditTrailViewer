@@ -41,6 +41,7 @@ class BinaryBRStructFile {
 		this.offset=0;
 		//generatorpolynom CRC32
 		this.GEN = 548942248;
+    this.GENDUMP = 543456888;
 		//this.typedParsingAbsStartByte=0;//absolutes startbyte für struct entpacken
 		//this.typedParsingStructCheckLen=1; //maximale atomare Datentyplänge innerhalb des Node
 		//this.typedParsingStructStartByte=0; //startbyte für jeden neuen structlevel
@@ -240,6 +241,34 @@ class BinaryBRStructFile {
 				for (var i = 0; i < 8; i++){
 					if(((crc_input[0] & 0x80000000) != 0) != ((indata & 0x80) != 0 )){
 						crc_input[0] = (crc_input[0] << 1) ^ this.GEN;
+					}else{
+						crc_input[0] = crc_input[0] << 1;
+					}
+					indata = indata << 1;
+				}
+			}
+		}
+		//alert (this.gen);
+		return crc_input[0];
+	}
+	/**
+	 * bildet prüfsummenalgorithmus auf Rohdatenebene ab
+	 *
+	 * @pmem start offset im blob (byteweise)
+	 * @len	bytelänge für Prüfsummeniteration
+	 * @return Ganzzahl (tatsächliche Prüfsumme)
+	 */
+	crctrenddump(pmem,len) {
+		var crc_input = new Uint32Array(1);
+		crc_input[0]=1;
+		var indata;
+		for (var n = 0; n < len; n++){
+			if ((pmem + len) < this.b.byteLength){
+				var h = new Uint8Array(this.b,pmem + n, 1);
+				indata = h[0];
+				for (var i = 0; i < 8; i++){
+					if(((crc_input[0] & 0x80000000) != 0) != ((indata & 0x80) != 0 )){
+						crc_input[0] = (crc_input[0] << 1) ^ this.GENDUMP;
 					}else{
 						crc_input[0] = crc_input[0] << 1;
 					}

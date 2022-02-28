@@ -193,14 +193,13 @@ class Eventfile extends BinaryBRStructFile  {
 				internalOffset+=4;//ID
 				out.payloadCount = this.makeUDINT(internalOffset);//payloadcount an diesem offset holen
 				internalOffset+=4;
-
 				if ( (internalOffset + out.payloadCount + 8) > this.b.byteLength){
 					this.eventFrameError++;
 					return false;
 				}else{
 					var CRC_E_calc = this.crctrend(internalOffset-12,out.payloadCount + 12);//CRC über erwartete länge berechnen (payload + crc + enddelim)
 					var CRC_E_found = this.makeUDINT(internalOffset + out.payloadCount);
-					if (CRC_E_calc != CRC_E_found){
+          if (CRC_E_calc != CRC_E_found){
 						this.eventCRCerrors++;
 						return false;
 					}else{

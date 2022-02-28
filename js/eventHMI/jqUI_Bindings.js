@@ -16,8 +16,9 @@
   $("#ButtonDrawReport").button().click(HMI.onFinalReportButton);
   $("#ButtonDrawReport").hide();
   $("#loadingScreen").dialog({autoOpen: false, modal:true, height: 400, width:600});
-  $( "#DialogError404, #DialogErrorHeaderTrendfile, #DialogErrorFileSelection" ).dialog({dialogClass: "alert", autoOpen: false});
+  $( "#DialogError404, #DialogErrorValidation, #DialogErrorFileSelection" ).dialog({dialogClass: "alert", autoOpen: false});
   $( "#progressbarloadingTrendfile" ).progressbar({max: 100, value:0});
+  $( "#ButtonReadFromArchive").button().click(HMI.onChangeInFileInput);
   $( document ).tooltip();
 
 }

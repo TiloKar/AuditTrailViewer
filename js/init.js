@@ -7,6 +7,6 @@ $( document ).ready(function() { //beim ersten Webseite laden
 	HMI.makeControlElementBindings();
 	BinaryBRTypedFile.parseTypedFiles(); //parsed die B&R Typdateien
 	$("#editor").hide();
-	fileInput.addEventListener('change', HMI.onChangeInFileInput,false);
+	//fileInput.addEventListener('change', HMI.onChangeInFileInput,false);
 
 });

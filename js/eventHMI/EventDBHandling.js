@@ -105,7 +105,7 @@ var HMI = {
     			//to do auf 404 reagieren, solange ungültige dateinamen in B&R zulässig, sehr wahrscheinlich
     			$( "#DialogError404" ).dialog("open");
     		}else{
-          HMI.unzipTrendFile1(xhr.response)
+          HMI.unzipTrendFile1(xhr.response,false)
         }
       }; //HMI.binRequest.onload = function(){HMI.trendfile.unzipTrendFile(HMI.binRequest)};
       xhr.addEventListener('progress', HMI.onprogressLoadingXHRFile);//HMI.binRequest.onprogress = function(){HMI.trendfile.onprogressHandlerTrendFile(HMI.binRequest)};
@@ -152,7 +152,19 @@ var HMI = {
 
 		trendfile1 = new Trendfile(response); //trendobject header und erste zeile synchron erzeugen
 
-		if (trendfile1.firstLineOK){
+		if (trendfile1.firstLineOK === false){
+      $('#DialogErrorValidation').html('Trendfiles first data line corrupted');
+      $( "#DialogErrorValidation" ).dialog("open");
+    }else if (trendfile1.CRC_A_OK === false) {
+        $('#DialogErrorValidation').html('Trendfiles first Header Checksumm is corrupted');
+        $( "#DialogErrorValidation" ).dialog("open");
+    }else if (trendfile1.CRC_B_OK === false) {
+        $('#DialogErrorValidation').html('Trendfiles second Header Checksumm is corrupted');
+        $( "#DialogErrorValidation" ).dialog("open");
+    }else if (trendfile1.tag !== idAT_1) {
+        $('#DialogErrorValidation').html('Trendfiles tag name corrupted');
+        $( "#DialogErrorValidation" ).dialog("open");
+    }else{
 			$("#editor").hide();
 			$("#reportList").html("<br><br><br>");
 
@@ -164,13 +176,15 @@ var HMI = {
         //event => {HMI.getEventFile1('plcfile/EVENTS' + idUnit_1 + '/' + idAT_1 + '.EVENT');});
         //event => {HMI.getDumpFile1('plcfile/DUMP' + idUnit_1 + '/' + idAT_1 + '.bbid');});
         nextCall);
-		}else{
-			$( "#DialogErrorHeaderTrendfile" ).dialog("open");
 		}
 	},
 
   getDumpFile1(src){
-    if (typeof src === 'string'){
+    if ((trendfile1.lineCRCerrors > 0)||(trendfile1.eventFrameError > 0)) {
+        let text=String(trendfile1.lineCRCerrors) + " Checksum-Errors in Trendfile"
+        $('#DialogErrorValidation').html(text);
+        $( "#DialogErrorValidation" ).dialog("open");
+    }else if (typeof src === 'string'){
       const xhr = new XMLHttpRequest();
       xhr.responseType="arraybuffer";
       xhr.open("GET", src, true);
@@ -180,7 +194,7 @@ var HMI = {
           //to do auf 404 reagieren, solange ungültige dateinamen in B&R zulässig, sehr wahrscheinlich
           $( "#DialogError404" ).dialog("open");
         }else{
-          HMI.unzipDumpFile1(xhr.response);
+          HMI.unzipDumpFile1(xhr.response,false);
         }
       }; //HMI.binRequest.onload = function(){HMI.trendfile.unzipTrendFile(HMI.binRequest)};
       xhr.addEventListener('progress', HMI.onprogressLoadingXHRFile);//HMI.binRequest.onprogress = function(){HMI.trendfile.onprogressHandlerTrendFile(HMI.binRequest)};
@@ -211,10 +225,16 @@ var HMI = {
   */
   unzipDumpFile1(response,local){
 
-      var dobj = new BinaryBRTypedFile(response,"dumpfile_typ");
+      //var dobj = new BinaryBRTypedFile(response,"dumpfile_typ");
+      var dobj = new Dumpfile(response,"dumpfile_typ");
       dumpfile1=dobj.elements;
-      //eventuell in zukunft noch prüfsummen checks einfügen, um diese in der dumbübersicht anzuzeigen
-      if (local===true){
+      if (dobj.checkSumsOK() !== true) {
+          $('#DialogErrorValidation').html("Dumpfile corrupted");
+          $( "#DialogErrorValidation" ).dialog("open");
+      }else if (dumpfile1.tag !== idAT_1) {
+          $('#DialogErrorValidation').html('Dumpfiles tag name corrupted');
+          $( "#DialogErrorValidation" ).dialog("open");
+      }else if (local===true){
         HMI.getEventFile1(localFiles1[2]);
       }else{
         HMI.getEventFile1('plcfile/EVENTS' + idUnit_1 + '/' + idAT_1 + '.EVENT');
@@ -267,7 +287,7 @@ var HMI = {
    * und beenden des Lesens übergeben werden
    *
    */
-  unzipEventFile(response,local){
+  unzipEventFile(response){
 
     //  this.eventfile.blob = xhr.response; //blob für weitere Verwendung im objekt speichern
     eventfile1 = new Eventfile(response); //trendobject header und erste zeile synchron erzeugen
@@ -283,6 +303,12 @@ var HMI = {
   },
 
   onFinishUnzip(){
+    //alert(eventfile1.eventCRCerrors);
+    if ((eventfile1.eventCRCerrors > 0)||(eventfile1.eventFrameError > 0)) {
+        let text="Checksum-Errors in Eventfile"
+        $('#DialogErrorValidation').html(text);
+        $( "#DialogErrorValidation" ).dialog("open");
+    }
     $("#loadingScreen").dialog("close");//hier HMI Eventhandler für Ladefenster öffnen
     $('#headerFilename').html(idAT_1);
     $("#fileSelection").hide();
