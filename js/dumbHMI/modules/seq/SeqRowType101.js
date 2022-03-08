@@ -20,11 +20,11 @@ class SeqRowType101 extends SeqRowTypeX{
     this.timeoutStep="no";
     if (r.parUINT[2]>0) this.timeoutStep= String(r.parUINT[2]);
 
-    this.global=seq.getGlobal(r.globalCon[0],indexRow + 1,"min");
-    if (this.global===false){
+    this.globalTimeout=seq.getGlobal(r.globalCon[0],indexRow + 1,"min");
+    if (this.globalTimeout===false){
       this.timeout=r.parUDINT[0];
     }else {
-      this.timeout = this.global.value;
+      this.timeout = this.globalTimeout.value;
     }
   }
 
@@ -33,13 +33,13 @@ class SeqRowType101 extends SeqRowTypeX{
     var back= '<div class="seqTransitionEntry">Open Dialog with text:<br>  <span class="seqUserText">' + this.message  +'</span><br>' +
               "on OK go to " + this.OKstep + "<br>" +
               "on CANCEL go to " + this.cancelStep;
-    if (this.timeoutStep!== "no"){
-      back+="<br>on TIMEOUT (" + this.timeout + " min) go to " + this.timeoutStep;
-      if (this.global!== false)
-        back+="<br" + this.global.text;
+    if (this.timeoutStep !== "no"){
+      back+="<br> Timeout on " + this.timeout + ' min enabled, jumping to ' + this.timeoutStep;
+      if (this.globalTimeout!== false){
+        back+=" " + this.globalTimeout.text;
+      }
     }
     back+="</div>";
     return back;
   }
-
 }
