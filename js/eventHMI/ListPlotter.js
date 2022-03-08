@@ -42,6 +42,7 @@ class ListPlotter{
     LoopEvents.init("#reportBlockLoopEvents",events,trend);
     ProfileEvents.init("#reportBlockProfileEvents",events,dump);
     SequenceEvents.init("#reportBlockSequenceEvents",events,dump);
+    KalEvents.init("#reportBlockKalEvents",events,trend);
   }
 
   /**

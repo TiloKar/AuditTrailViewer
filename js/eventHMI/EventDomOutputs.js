@@ -44,9 +44,9 @@ class EventDOMOutputs   {
       "Communication Alert",
       "Hardware Alert");
     var alertTypeString = new Array();
-    alertTypeString.push('<span class="alertCome">come</span>',
-      '<span class="alertGone">gone</span>',
-      '<span class="alertAck">ack.</span>');
+    alertTypeString.push('<span class="alertCome"> come</span>',
+      '<span class="alertGone"> gone</span>',
+      '<span class="alertAck"> ack.</span>');
     back=  '<span class="reportListFirstCol reportListError">' + alertSubClassString[alertSubClass] + '</span>';
     back+= alertTypeString[alertType];
 
@@ -86,7 +86,7 @@ class EventDOMOutputs   {
     }
     var alertGenericString = new Array();
     alertGenericString.push(alertSystemsString,alertSerialsString,alertX20String);
-    back+= '<br><span class="reportListAlertText">' + alertGenericString[alertSubClass][index] + '</span>';
+    back+= '<br><span class="reportListAlertText">' + '(ID: ' + String(alertSubClass) + '-'+ String(index) +') ' + alertGenericString[alertSubClass][index] + '</span>';
 
     return back;
   }
@@ -106,11 +106,11 @@ class EventDOMOutputs   {
       "L Alert",
       "LL Alert");
     var alertTypeString = new Array();
-    alertTypeString.push('<span class="alertCome">come</span>',
-      '<span class="alertGone">gone</span>',
-      '<span class="alertAck">ack.</span>');
-    back=  '<span class="reportListFirstCol reportListError">' + alertSubClassString[alertSubClass];
-    back+= ' on ' + '<span class="reportListAlertInputTag">' + inputTag + '</span></span>';
+    alertTypeString.push('<span class="alertCome"> come</span>',
+      '<span class="alertGone"> gone</span>',
+      '<span class="alertAck"> ack.</span>');
+    back=  '<span class="reportListFirstCol"><span class="reportListError">' + alertSubClassString[alertSubClass];
+    back+= '</span> on ' + '<span class="reportListInputTag">' + inputTag + '</span></span>';
     back+= alertTypeString[alertType];
 
     return back;

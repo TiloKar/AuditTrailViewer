@@ -47,7 +47,7 @@
 .seqOutputValue, .reportListOutputTag{
 	color: #F60;
 }
-.seqInputValue, .reportListInputTag, .alertGone, .reportListAlertInputTag {
+.seqInputValue, .reportListInputTag, .alertGone {
 	color: darkgreen;
 }
 .seqLoopValue, .reportListLoopTag, .reportListSeqTag, .seqTimeValue, .keepValve, .alertAck{

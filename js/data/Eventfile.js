@@ -82,6 +82,8 @@ class Eventfile extends BinaryBRStructFile  {
       case 160: //alarm LL come
       case 161: //alarm LL gone
       case 162: //alarm LL ack
+      case 80: //zero/tara
+      case 81: //cal-set changed
 
         out.par1=this.makeUDINT();
         out.par2=this.makeUDINT();
