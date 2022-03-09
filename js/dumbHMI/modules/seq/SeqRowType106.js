@@ -23,19 +23,19 @@ class SeqRowType106 extends SeqRowTypeX{
     super(r);
     this.name1=seq.getInputName(r.parUINT[1]);
     this.unit1=seq.getInputUnit(r.parUINT[1]);
-    this.globalValue1=seq.getGlobal(r.globalCon[0],indexRow + 1,this.unit);
+    this.globalValue1=seq.getGlobal(r.globalCon[0],indexRow + 1,this.unit1);
     this.name2=seq.getInputName(r.parUINT[2]);
     this.unit2=seq.getInputUnit(r.parUINT[2]);
-    this.globalValue2=seq.getGlobal(r.globalCon[2],indexRow + 1,this.unit);
+    this.globalValue2=seq.getGlobal(r.globalCon[2],indexRow + 1,this.unit2);
     if (this.globalValue1===false){
-      this.value1=BinaryBRStructFile.roundWithUnit(r.parReal[0],this.unit);
+      this.value1=BinaryBRStructFile.roundWithUnit(r.parReal[0],this.unit1);
     }else {
-      this.value1 = BinaryBRStructFile.roundWithUnit(this.globalValue1.value,this.unit);
+      this.value1 = BinaryBRStructFile.roundWithUnit(this.globalValue1.value,this.unit1);
     }
     if (this.globalValue2===false){
-      this.value2=BinaryBRStructFile.roundWithUnit(r.parReal[1],this.unit);
+      this.value2=BinaryBRStructFile.roundWithUnit(r.parReal[1],this.unit2);
     }else {
-      this.value2 = BinaryBRStructFile.roundWithUnit(this.globalValue2.value,this.unit);
+      this.value2 = BinaryBRStructFile.roundWithUnit(this.globalValue2.value,this.unit2);
     }
     this.biggerThenOp1 = [0,2,4,6];
     this.biggerThenOp2 = [0,1,2,3];
