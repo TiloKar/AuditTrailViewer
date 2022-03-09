@@ -57,6 +57,7 @@ class SeqDump  {
         'SeqRowType103' : SeqRowType103,
         'SeqRowType104' : SeqRowType104,
         'SeqRowType105' : SeqRowType105,
+        'SeqRowType106' : SeqRowType106,
         'SeqRowType110' : SeqRowType110,
         'SeqRowType164' : SeqRowType164
     };
