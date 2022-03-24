@@ -337,7 +337,7 @@ class BinaryBRStructFile {
   */
   static round(wert, dez) {
       var hlp = Math.pow(10,dez)
-      return Math.floor(wert * hlp) / hlp;
+      return Math.round(wert * hlp) / hlp ;
   }
   /**
   gibt die default totbandeinstellung für die trend filter zurück,
