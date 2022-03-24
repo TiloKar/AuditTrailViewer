@@ -43,6 +43,7 @@ class SeqDump  {
         'SeqRowType22' : SeqRowType22,
         'SeqRowType30' : SeqRowType30,
         'SeqRowType32' : SeqRowType32,
+        'SeqRowType40' : SeqRowType40,
         'SeqRowType50' : SeqRowType50,
         'SeqRowType60' : SeqRowType60,
         'SeqRowType64' : SeqRowType64,
@@ -99,7 +100,6 @@ class SeqDump  {
       }catch(e){
         rout=false;
         back+='<div class="reportListError">unhandled action class ' + r.parUINT[0] + '</div>';
-        //alert("not found");
       }
       back+=  '</li>';
     }
