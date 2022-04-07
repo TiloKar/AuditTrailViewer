@@ -58,12 +58,12 @@ class ProfileEvents{
             else
               var enabled= 'disabled';
             push= '<span class="reportListFirstCol"><b>Profile ' + String(element.data.par1 + 1) +
-                  '</b> ' + enabled + ' by user<span class="reportListLoopTag">' + ProfileEvents.dump.configActive[UnitID_1].profile[element.data.par1].tag  +
+                  '</b> ' + enabled + ' by user<span class="reportListLoopTag">' + ProfileEvents.dump.configActive[idUnit_1].profile[element.data.par1].tag  +
                   "</span></span>";
           break;
           case 41:
             push= '<span class="reportListFirstCol"><b>Profile ' + String(element.data.par1 + 1) +
-                  '</b> completed automatically <span class="reportListLoopTag">' + ProfileEvents.dump.configActive[UnitID_1].profile[element.data.par1].tag  +
+                  '</b> completed automatically <span class="reportListLoopTag">' + ProfileEvents.dump.configActive[idUnit_1].profile[element.data.par1].tag  +
                   "</span></span>";
           break;
         }
