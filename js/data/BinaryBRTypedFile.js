@@ -17,7 +17,7 @@ class BinaryBRTypedFile extends BinaryBRStructFile{
   static parseTypedFiles(callback){
     //klassenvariablen mit Dateinamen im typ ordner
     BinaryBRTypedFile.BR_TYPE_FILES =[
-       "dumb"
+       "dumbSeq10Auto"
       // "fatdumb"
        //mit komma weitere dateien einhängen...
     ];
